@@ -4,7 +4,7 @@ info = {
     "name": "Text edit file renamer",
     "description": "Rename files by dropping selection on python file",
     "author": "Samuel Bernou",
-    "version": (0, 1, 0),
+    "version": (0, 2, 0),
     # "warning": "",
     "doc_url": "https://github.com/Pullusb/textedit_file_renamer",
     "category": "Utils" }
@@ -13,8 +13,8 @@ import sys, os
 from pathlib import Path
 import subprocess
 
-# command or path to editor (hardcoded for vscode for now)
-bin = 'code'
+# command or path to editor
+editor = Path(__file__).with_name('editor.txt')
 
 src = Path(__file__).with_name('src.txt')
 dest = Path(__file__).with_name('dest.txt')
@@ -56,15 +56,21 @@ def rename_dropped():
         print('problem, src.txt or dest.txt could not be created')
         return
 
-    #-# open dest in editor (add a text file to specify default editor)
-    # cmd = [str(dest)]
-    cmd = [bin , str(dest)]
+    #-# open dest in default editor or the one specified in first line of editor.txt
+    cmd = [str(dest)]
+    if editor.exists():
+        with editor.open('r') as fd:
+            bin = fd.readlines(1) # read only first line
+            if bin and bin[0].strip():
+                # bin[0]
+                cmd = [bin[0].strip() , str(dest)]
+
     subprocess.Popen(cmd, shell=True)
     
 
     ## PAUSE HERE - user modification - then resume
-    print('Edit the names in "dest.txt" as you see fit and save the file')
-    input('Then press any key to start renaming\n')
+    print('Edit the names in file "dest.txt" and save the file')
+    input('Then press Enter to start\n')
 
     ## alternatively trigger rename once text editor is closed
     # print('Once "dest.txt" is closed, the process will start')
@@ -106,6 +112,11 @@ def rename_dropped():
         if not s.exists():
             print(f'{s.name} not found in source ! (will be skipped)')
             continue
+
+        if s.name == d:
+            print(f'{s.name} == {d} (unchanged)') # name
+            continue
+
         print(f'{s.name} >> {d}')
 
     ## PAUSE for validating preview
@@ -116,17 +127,25 @@ def rename_dropped():
     ## temporary rename step - rename everything with an uid...
     temp_dest = [n.with_name(tmp_name(n.name)) for n in all_files]
     with temp.open('w') as fd:
-        for s, t in zip(all_files, temp_dest):
+        for s, t, d in zip(all_files, temp_dest, new):
+            if s.name == d:
+                # same names, rewrite source since line must exists
+                fd.write(s.as_posix() + '\n') # 
+                continue
+
             fd.write(t.as_posix() + '\n')
             s.rename(t)
 
     ## Rename from temp uid to final name
     for s, t, d in zip(all_files, temp_dest, new):
         if not t.exists():
-            # print(f'{t.name} not found in source !')
             continue
-        print(f'{s.name} >> {d}') # print with original source name
 
+        if s.name == d:
+            # print(f'{s.name} == {d}') # print same ?
+            continue
+
+        print(f'{s.name} >> {d}') # print with original source name
         t.rename(t.with_name(d))
 
 

@@ -1,0 +1,12 @@
+
+Write in above line the path to wanted text editor executable
+or a valid command line shortcut
+
+example 1. full path to sublime text:
+C:\Program Files\Sublime Text 3\sublime_text.exe
+
+example 2. if VScode is installed in command line:
+code 
+
+Only the first line is used by the script.
+If left empty (or editor.txt deleted) open with default text editor.
