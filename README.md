@@ -29,8 +29,8 @@ If `editor.txt` not exists or is empty (as default) it will open with default sy
 
 #### Why ?
 
-I used several renamer software, and there a blast for precise batch rename.  
-But there are cases where you have to rename file by file with some non-scriptable variations.  
+I used several renamer software, and those are a blast for precise batch rename.  
+But there are cases where you have to rename files that have  some non-scriptable variations.  
 I encountered the situation again and this were my thoughts:  
 "Rhaaa! It would be so easy if filenames were editable like in a multi-cursor modern text editor..." 
 "..."  
