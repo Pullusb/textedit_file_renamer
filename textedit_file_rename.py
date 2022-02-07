@@ -1,10 +1,11 @@
+#!/usr/bin/python3
 # Basic File Renamer
 
 info = {
     "name": "Text edit file renamer",
     "description": "Rename files by dropping selection on python file",
     "author": "Samuel Bernou",
-    "version": (0, 2, 0),
+    "version": (0, 2, 1),
     # "warning": "",
     "doc_url": "https://github.com/Pullusb/textedit_file_renamer",
     "category": "Utils" }
