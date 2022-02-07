@@ -66,7 +66,7 @@ def rename_dropped():
                 # bin[0]
                 cmd = [bin[0].strip() , str(dest)]
 
-    subprocess.Popen(cmd, shell=True)
+    subprocess.Popen(cmd, shell=False)
     
 
     ## PAUSE HERE - user modification - then resume
