@@ -1,5 +1,10 @@
 # Changelog
 
+0.2.1
+
+- added: shebang for linux user `#!/usr/bin/python3`
+- documentation for ubuntu setup
+
 0.2.0
 
 - feat: editor command or path is set in external text-file
