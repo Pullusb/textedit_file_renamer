@@ -1,5 +1,6 @@
 __pycache__
 *.py[cod]
+settings.json
 src.txt
 dest.txt
 temp.txt

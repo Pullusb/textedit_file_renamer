@@ -5,7 +5,7 @@ info = {
     "name": "Text edit file renamer",
     "description": "Rename files by dropping selection on python file",
     "author": "Samuel Bernou",
-    "version": (0, 2, 1),
+    "version": (0, 2, 2),
     # "warning": "",
     "doc_url": "https://github.com/Pullusb/textedit_file_renamer",
     "category": "Utils" }
@@ -66,7 +66,8 @@ def rename_dropped():
                 # bin[0]
                 cmd = [bin[0].strip() , str(dest)]
 
-    subprocess.Popen(cmd, shell=False)
+    shell_mod = True if sys.platform.startswith('win') else False
+    subprocess.Popen(cmd, shell=shell_mod)
     
 
     ## PAUSE HERE - user modification - then resume
